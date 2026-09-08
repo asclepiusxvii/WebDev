@@ -1,0 +1,21 @@
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Editor settings
+.vscode/
+.idea/
+
+# Logs and temporary files
+*.log
+*.tmp
+*.bak
+
+# Local environment/config overrides
+.env
+.env.*
+includes/db.local.php
+
+# XAMPP/runtime temp files
+tmp/
+cache/
