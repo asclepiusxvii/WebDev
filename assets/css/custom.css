@@ -1,0 +1,10 @@
+html { scroll-behavior: smooth; }
+body { font-family: Arial, Helvetica, sans-serif; }
+.heading-font { font-family: "Arial Narrow", Arial, Helvetica, sans-serif; font-stretch: condensed; }
+.ram-pattern {
+  background-color: #fef5e6;
+  background-image:
+    radial-gradient(ellipse at 25% 0%, transparent 0 34px, rgba(202,162,95,.28) 35px 36px, transparent 37px),
+    radial-gradient(ellipse at 75% 0%, transparent 0 34px, rgba(202,162,95,.28) 35px 36px, transparent 37px);
+  background-size: 90px 70px;
+}
