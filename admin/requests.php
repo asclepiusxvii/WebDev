@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../includes/auth.php';
 require_once __DIR__ . '/../includes/db.php';
 require_once __DIR__ . '/../includes/helpers.php';
-requireRole('admin');
+requireAnyRole(['admin', 'staff']);
 
 $status = trim((string)($_GET['status'] ?? ''));
 $q = trim((string)($_GET['q'] ?? ''));

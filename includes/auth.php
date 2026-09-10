@@ -15,7 +15,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-const SESSION_TIMEOUT_SECONDS = 1800; // 30 minutes
+const SESSION_TIMEOUT_SECONDS = 1800;
 
 if (isset($_SESSION['user_id'])) {
     $lastActivity = (int)($_SESSION['last_activity'] ?? time());
@@ -47,13 +47,30 @@ function requireLogin(): void {
     }
 }
 
+function roleHome(string $role): string {
+    return match ($role) {
+        'admin' => '/ramtech/admin/dashboard.php',
+        'staff' => '/ramtech/staff/dashboard.php',
+        default => '/ramtech/client/dashboard.php',
+    };
+}
+
 function requireRole(string $role): void {
     requireLogin();
 
     if (($_SESSION['role'] ?? '') !== $role) {
-        header('Location: ' . (($_SESSION['role'] ?? '') === 'admin'
-            ? '/ramtech/admin/dashboard.php'
-            : '/ramtech/client/dashboard.php'));
+        header('Location: ' . roleHome((string)($_SESSION['role'] ?? 'client')));
+        exit;
+    }
+}
+
+function requireAnyRole(array $roles): void {
+    requireLogin();
+
+    $currentRole = (string)($_SESSION['role'] ?? '');
+
+    if (!in_array($currentRole, $roles, true)) {
+        header('Location: ' . roleHome($currentRole));
         exit;
     }
 }
@@ -63,8 +80,6 @@ function redirectByRole(): void {
         return;
     }
 
-    header('Location: ' . (($_SESSION['role'] ?? '') === 'admin'
-        ? '/ramtech/admin/dashboard.php'
-        : '/ramtech/client/dashboard.php'));
+    header('Location: ' . roleHome((string)($_SESSION['role'] ?? 'client')));
     exit;
 }

@@ -4,23 +4,7 @@ require_once __DIR__ . '/includes/db.php';
 require_once __DIR__ . '/includes/helpers.php';
 
 /*
-|--------------------------------------------------------------------------
-| LIVE HOMEPAGE STATISTICS
-|--------------------------------------------------------------------------
-| These values are pulled directly from the current MySQL database.
-|
-| Active:
-|   Every request that is not Completed or Cancelled.
-|
-| In Progress:
-|   Requests whose exact status is "In Progress".
-|
-| Resolved:
-|   Every request whose status is "Completed".
-|
-| Recent Requests:
-|   The 3 newest service requests in the database.
-|--------------------------------------------------------------------------
+Homepage Statistis...
 */
 
 $activeRequests = 0;
@@ -56,12 +40,7 @@ if ($result) {
 }
 
 /*
-|--------------------------------------------------------------------------
-| QUEUE LOAD
-|--------------------------------------------------------------------------
-| A simple visual percentage based on active requests compared with all
-| requests currently stored. If there are no requests, the load is 0%.
-|--------------------------------------------------------------------------
+Queue :D
 */
 $queueLoad = $totalRequests > 0
     ? (int)round(($activeRequests / $totalRequests) * 100)

@@ -3,7 +3,7 @@ require_once __DIR__ . '/../includes/auth.php';
 require_once __DIR__ . '/../includes/db.php';
 require_once __DIR__ . '/../includes/helpers.php';
 require_once __DIR__ . '/../includes/service-functions.php';
-requireRole('admin');
+requireAnyRole(['admin', 'staff']);
 
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT) ?: 0;
 $message = '';
@@ -19,7 +19,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     requireCsrf();
 
     if (isset($_POST['delete_request'])) {
-        $stmt = $conn->prepare('DELETE FROM service_requests WHERE id = ?');
+        if (($_SESSION['role'] ?? '') !== 'admin') {
+            http_response_code(403);
+            $error = 'Only administrators can permanently delete service requests.';
+        } else {
+            $stmt = $conn->prepare('DELETE FROM service_requests WHERE id = ?');
 
         if (!$stmt) {
             logDatabaseError('admin delete request prepare', $conn);
@@ -35,6 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             error_log('RamTech DB error [admin delete request execute]: ' . $stmt->error);
             $error = 'Unable to delete this request right now.';
+        }
         }
     } elseif (isset($_POST['update_request'])) {
         $status = trim((string)($_POST['status'] ?? ''));
@@ -183,7 +188,8 @@ $updates = getRequestUpdates($conn, $id);
     </div>
   </section>
 
-  <section class="mt-6 rounded-2xl border border-red-200 bg-red-50/50 p-6">
+  <?php if (($_SESSION['role'] ?? '') === 'admin'): ?>
+<section class="mt-6 rounded-2xl border border-red-200 bg-red-50/50 p-6">
     <p class="text-xs font-black uppercase tracking-[0.25em] text-red-600">Danger Zone</p>
     <h2 class="mt-2 text-xl font-black text-red-800">Delete This Request</h2>
     <p class="mt-2 text-sm text-red-700/80">This permanently deletes this service request and its update history.</p>
@@ -192,6 +198,7 @@ $updates = getRequestUpdates($conn, $id);
       <button name="delete_request" value="1" class="rounded-full bg-red-700 px-5 py-3 text-sm font-bold text-white">Delete Request</button>
     </form>
   </section>
+<?php endif; ?>
 </div>
 </main>
 
