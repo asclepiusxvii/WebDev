@@ -6,8 +6,7 @@
  To be Submitted to: Mr. Ariel Bensing
 
  ITS 300 - Web Development I (Section A 10:00am - 11:30am)
-
- Note to self: ;-; Kaya or Kayamukat, naa ra anang duha
+ 
  Commit 1: Base Files
  Commit 2: Update Files
 
@@ -35,3 +34,22 @@ Client tracks progress
 Request completed
 
 Done :D
+
+Current Features/Functions to Client:
+Register/Login
+Request/Cancel Service
+Choose Service Type
+Update Profile (Name, Number)
+
+Current Features/Functions to Admin and Staff:
+Dashboard: 
+- View/Manage Recent Requests
+Service Management:
+- Manage Requests (Update and Remove)
+- Monitor Active Requests
+- Completed Requests
+Accounts:
+- Customer History (Client, Contact, Requests Issued, Joined)
+- Register Staff Account
+System Tools (Experimental)
+- Flush History (ADMIN ONLY)
