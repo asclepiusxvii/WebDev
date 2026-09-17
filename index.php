@@ -420,6 +420,8 @@ $recentRequests = $conn->query("
 
 <footer class="bg-[#121312] px-6 pb-10 text-center text-sm text-white/40">
   © 2026 RamTech. All rights reserved. Solutions Made Simple.
+</footer>
+<footer class="bg-[#121312] px-6 pb-10 text-center text-sm text-white/40">
   Contact: ramtech.solutions2026@gmail.com / +63 947 786 2798
 </footer>
 
